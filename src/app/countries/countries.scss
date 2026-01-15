@@ -1,0 +1,17 @@
+.countries {
+  &__search-and-filter {
+    display: flex;
+    justify-content: space-between;
+    margin-block: 40px;
+  }
+}
+
+#search-input {
+  height: 40px;
+  width: 400px;
+}
+
+#region {
+  width: 170px;
+  padding-inline: 10px;
+}

@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'styles/utils';
+
+body, h1, h2, p {
+  margin: 0;
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+  background-color: hsl(0, 0%, 98%);
+  color: hsl(200, 15%, 8%);
+}
+
+
+

@@ -1,0 +1,22 @@
+.header {
+  background-color: #fff;
+  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
+
+  &__content {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__dark-mode-button {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+}
+
