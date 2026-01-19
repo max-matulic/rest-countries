@@ -1,8 +1,12 @@
-<header class="header container-fluid">
+<header class="header">
   <div class="header__content container">
     <h1>Where in the world?</h1>
-    <button class="header__dark-mode-button">
-      <img src="/moon-regular.svg" alt="moon icon" height="14" width="14">
+    <button class="header__dark-mode-button" (click)="toggleDarkMode()">
+      @if (isDarkMode) {
+        <img src="/moon-solid-white.svg" alt="white moon icon" height="14" width="14">
+      } @else {
+        <img src="/moon-regular.svg" alt="moon icon" height="14" width="14">
+      }
       <span>Dark Mode</span>
     </button>
   </div>

@@ -1,17 +1,44 @@
+:host-context(body.dark-mode) {
+  #search-input {
+    background-color: hsl(209, 23%, 22%);
+    color: #fff;
+
+    &::placeholder {
+      color: #fff;
+    }
+  }
+
+  #region {
+    background-color: hsl(209, 23%, 22%);
+    color: #fff;
+  }
+}
+
 .countries {
   &__search-and-filter {
     display: flex;
     justify-content: space-between;
     margin-block: 40px;
   }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 64px;
+  }
 }
 
 #search-input {
   height: 40px;
   width: 400px;
+  border: 0;
+  border-radius: 5px;
+  padding-left: 20px;
 }
 
 #region {
+  border: 0;
+  border-radius: 5px;
   width: 170px;
   padding-inline: 10px;
 }

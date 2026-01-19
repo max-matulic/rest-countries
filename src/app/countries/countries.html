@@ -4,14 +4,17 @@
     <input type="text" name="search-input" id="search-input" placeholder="Search for a country...">
     <select name="region" id="region">
       <option value="">Filter by Region</option>
-      <option value="africa">Africa</option>
+      @if (regions$ | async; as regions) {
+        @for (region of regions; track region) {
+          <option value="region">{{ region }}</option>
+        }
+      }
     </select>
   </div>
   @if (countries$ | async; as countries) {
     <div class="countries__grid">
       @for (country of countries; track country.name) {
-
-        <app-single-country [flag]="country.flag" [country]="country.name" [population]="country.population"
+        <app-single-country [flag]="country.flag" [country]="country.name" [population]="country.population.toString()"
                             [region]="country.region" [capital]="country.capital"></app-single-country>
       }
     </div>

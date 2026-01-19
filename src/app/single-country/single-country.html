@@ -1,7 +1,11 @@
 <div class="single-country">
-  <img src="{{flag()}}" alt="flag of {{country()}}">
-  <h2>{{ country() }}</h2>
-  <p>Population: {{ population() }}</p>
-  <p>Region: {{ region() }}</p>
-  <p>Capital: {{ capital() }}</p>
+  <div class="single-country__image-wrapper">
+    <img src="{{flag()}}" alt="flag of {{country()}}" class="single-country__image">
+  </div>
+  <div class="single-country__info">
+    <h2 class="single-country__title">{{ country() }}</h2>
+    <p><strong>Population:</strong> {{ population() }}</p>
+    <p class="single-country__region"><strong>Region:</strong> {{ region() }}</p>
+    <p><strong>Capital:</strong> {{ capital() }}</p>
+  </div>
 </div>

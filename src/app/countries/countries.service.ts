@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, shareReplay} from 'rxjs';
+import {Country} from '../single-country/single-country.model';
+
 
 @Injectable({providedIn: "root"})
 export class CountriesService {
-  constructor(private http: HttpClient) {
-  }
+http = inject(HttpClient);
 
-  getCountries(): Observable<any> {
-    return this.http.get("https://restcountries.com/v2/all?fields=flag,name,population,region,capital")
-  }
+  countries$: Observable<Country[]> = this.http.get<Country[]>("https://restcountries.com/v2/all?fields=flag,name,population,region,capital").pipe(shareReplay(1))
+
 }

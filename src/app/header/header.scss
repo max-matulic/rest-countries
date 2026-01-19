@@ -1,3 +1,16 @@
+:host-context(body.dark-mode) {
+  .header {
+    background-color: hsl(209, 23%, 22%);
+
+    &__dark-mode-button {
+      color: #fff;
+      fill: #fff;
+    }
+  }
+
+
+}
+
 .header {
   background-color: #fff;
   box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
@@ -16,6 +29,7 @@
     display: flex;
     align-items: center;
     gap: 4px;
+    cursor: pointer;
   }
 
 }
