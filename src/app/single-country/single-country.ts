@@ -1,8 +1,11 @@
 import {Component, input} from '@angular/core';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-single-country',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './single-country.html',
   styleUrl: './single-country.scss',
 })

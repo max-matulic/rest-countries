@@ -1,23 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'styles/utils';
+@use 'styles/variables';
 
 body, h1, h2, p {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   font-family: "Nunito Sans", sans-serif;
-  color: hsl(200, 15%, 8%);
+  color: variables.$light-text;
 }
 
 .dark-mode {
-  background-color: hsl(207, 26%, 17%);
-  color: hsl(0, 100%, 100%);
+  background-color: variables.$dark-background;
+  color: variables.$white;
 }
 
 .light-mode {
-  background-color: hsl(0, 0%, 97%);
-  color: hsl(200, 15%, 8%);
+  background-color: variables.$light-background;
+  color: variables.$light-text;
 }
 
 

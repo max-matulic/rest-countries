@@ -1,4 +1,4 @@
-<div class="single-country">
+<a [routerLink]="['countries', country()]" class="single-country">
   <div class="single-country__image-wrapper">
     <img src="{{flag()}}" alt="flag of {{country()}}" class="single-country__image">
   </div>
@@ -8,4 +8,5 @@
     <p class="single-country__region"><strong>Region:</strong> {{ region() }}</p>
     <p><strong>Capital:</strong> {{ capital() }}</p>
   </div>
-</div>
+</a>
+

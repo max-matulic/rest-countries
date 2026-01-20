@@ -1,19 +1,25 @@
-<app-header></app-header>
 <div class="countries container">
   <div class="countries__search-and-filter">
-    <input type="text" name="search-input" id="search-input" placeholder="Search for a country...">
-    <select name="region" id="region">
+    <input type="text" name="search-input" id="search-input" placeholder="Search for a country..."
+           [formControl]="search">
+    <select name="region" id="region" autocomplete="off" [formControl]="filter">
       <option value="">Filter by Region</option>
-      @if (regions$ | async; as regions) {
-        @for (region of regions; track region) {
-          <option value="region">{{ region }}</option>
-        }
+      <option value="all">All countries</option>
+      @for (region of regions(); track region) {
+        <option value="{{region}}">{{ region }}</option>
       }
     </select>
   </div>
-  @if (countries$ | async; as countries) {
+
+  @if (loading()) {
+    <div class="countries__spinner"></div>
+  } @else if (error()) {
+    <div class="countries__error">
+      <p>{{ error() }}</p>
+    </div>
+  } @else {
     <div class="countries__grid">
-      @for (country of countries; track country.name) {
+      @for (country of countries(); track country.name) {
         <app-single-country [flag]="country.flag" [country]="country.name" [population]="country.population.toString()"
                             [region]="country.region" [capital]="country.capital"></app-single-country>
       }

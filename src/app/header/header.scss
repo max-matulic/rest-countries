@@ -1,22 +1,22 @@
+@use '../../styles/variables';
+
 :host-context(body.dark-mode) {
   .header {
-    background-color: hsl(209, 23%, 22%);
+    background-color: variables.$dark-elements;
 
     &__dark-mode-button {
-      color: #fff;
-      fill: #fff;
+      color: variables.$white;
+      fill: variables.$white;
     }
   }
-
-
 }
 
 .header {
-  background-color: #fff;
+  background-color: variables.$white;
   box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
 
   &__content {
-    min-height: 80px;
+    min-height: variables.$space-80;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25,10 +25,10 @@
   &__dark-mode-button {
     border: none;
     background-color: transparent;
-    font-size: 16px;
+    font-size: variables.$space-16;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: variables.$space-4;
     cursor: pointer;
   }
 
