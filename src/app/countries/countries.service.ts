@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {catchError, map, Observable, of, shareReplay, startWith} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Country} from '../single-country/single-country.model';
 
 
