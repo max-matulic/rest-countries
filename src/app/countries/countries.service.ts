@@ -1,8 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {Country} from '../single-country/single-country.model';
-
 
 @Injectable({providedIn: "root"})
 export class CountriesService {
@@ -19,5 +18,12 @@ export class CountriesService {
 
   getCountriesByName(countryName: string): Observable<Country[]>{
     return this.http.get<Country[]>(`https://restcountries.com/v2/name/${countryName}`);
+  }
+
+  getSingleCountry(countryName: string): Observable<Country>{
+    return this.http.get<Country[]>(`https://restcountries.com/v2/name/${countryName}`).pipe(map(country => {
+      const [singleCountry] = country;
+      return singleCountry;
+    }))
   }
 }

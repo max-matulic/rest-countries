@@ -22,6 +22,11 @@
     justify-content: space-between;
   }
 
+  &__title {
+    font-size: variables.$font-size-22;
+    font-weight: 800;
+  }
+
   &__dark-mode-button {
     border: none;
     background-color: transparent;

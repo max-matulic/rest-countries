@@ -23,38 +23,11 @@
     margin-block: variables.$space-40;
   }
 
-  &__error {
-    background-color: variables.$error-light;
-    padding: variables.$space-12 variables.$space-20;
-    border-radius: variables.$space-4;
-    border-left: variables.$space-4 solid variables.$error-dark;
-  }
-
   &__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: variables.$space-64;
     margin-bottom: variables.$space-32;
-  }
-
-  &__spinner {
-    margin: 0 auto;
-    height: variables.$space-48;
-    width: variables.$space-48;
-    border: variables.$space-8 solid variables.$dark-elements;
-    border-radius: 50%;
-    border-top: variables.$space-8 solid variables.$loading-spinner;
-    animation: spin 1s linear infinite;
-
-    @keyframes spin {
-      from {
-        rotate: 0deg;
-      }
-
-      to {
-        rotate: 360deg;
-      }
-    }
   }
 }
 

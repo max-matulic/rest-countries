@@ -6,14 +6,14 @@ export interface Country {
   population: number;
   region: string;
   nativeName: string;
-  subRegion: string;
+  subregion: string;
   topLevelDomain: string[];
   currencies: Currencies[];
   languages: Languages[];
   borders: string[];
 }
 
-interface Currencies {
+export interface Currencies {
   code: string;
   name: string;
   symbol: string;

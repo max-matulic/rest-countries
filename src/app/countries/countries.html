@@ -12,11 +12,9 @@
   </div>
 
   @if (loading()) {
-    <div class="countries__spinner"></div>
+    <app-loading-spinner/>
   } @else if (error()) {
-    <div class="countries__error">
-      <p>{{ error() }}</p>
-    </div>
+    <app-error-message [error]="error()"/>
   } @else {
     <div class="countries__grid">
       @for (country of countries(); track country.name) {

@@ -2,12 +2,14 @@
 @use 'styles/utils';
 @use 'styles/variables';
 
-body, h1, h2, p {
+body, h1, h2, h3, p, button {
   margin: 0;
+  padding: 0;
 }
 
 a {
   text-decoration: none;
+  color: variables.$light-text;
 }
 
 body {

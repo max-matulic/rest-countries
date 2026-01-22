@@ -1,0 +1,8 @@
+@use '../../styles/variables';
+
+.error-message {
+  background-color: variables.$error-light;
+  padding: variables.$space-12 variables.$space-20;
+  border-radius: variables.$space-4;
+  border-left: variables.$space-4 solid variables.$error-dark;
+}

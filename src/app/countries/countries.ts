@@ -5,12 +5,17 @@ import {Country} from '../single-country/single-country.model';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {debounceTime} from 'rxjs';
+import {LoadingSpinner} from '../loading-spinner/loading-spinner';
+import {ErrorMessage} from '../error-message/error-message';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-countries',
   imports: [
     SingleCountry,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoadingSpinner,
+    ErrorMessage
   ],
   templateUrl: './countries.html',
   styleUrl: './countries.scss',
@@ -40,8 +45,8 @@ export class Countries {
         this.allCountries.set(countries);
         this.regions.set([...new Set(countries.map(country=> country.region))].sort());
       },
-      error: ()=>{
-        this.error.set("Failed to load countries.");
+      error: (err: HttpErrorResponse)=>{
+        this.error.set(err.message);
         this.loading.set(false);
       },
       complete: ()=>{
@@ -59,8 +64,8 @@ export class Countries {
           next: (countries: Country[])=>{
             this.countries.set(countries);
           },
-          error: ()=>{
-            this.error.set("Failed to load countries.");
+          error: (err: HttpErrorResponse)=>{
+            this.error.set(err.message);
             this.loading.set(false);
           },
           complete: ()=>{
@@ -82,8 +87,8 @@ export class Countries {
           next: (countries: Country[])=>{
             this.countries.set(countries);
           },
-          error: ()=>{
-            this.error.set("Failed to load countries.");
+          error: (err: HttpErrorResponse)=>{
+            this.error.set(err.message);
             this.loading.set(false);
           },
           complete: ()=>{

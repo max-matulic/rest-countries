@@ -1,0 +1,21 @@
+@use '../../styles/variables';
+
+.loading-spinner {
+  margin: 0 auto;
+  height: variables.$space-48;
+  width: variables.$space-48;
+  border: variables.$space-8 solid variables.$dark-elements;
+  border-radius: 50%;
+  border-top: variables.$space-8 solid variables.$loading-spinner;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    from {
+      rotate: 0deg;
+    }
+
+    to {
+      rotate: 360deg;
+    }
+  }
+}
