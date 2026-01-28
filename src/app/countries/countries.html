@@ -18,7 +18,8 @@
   } @else {
     <div class="countries__grid">
       @for (country of countries(); track country.name) {
-        <app-single-country [flag]="country.flag" [country]="country.name" [population]="country.population.toString()"
+        <app-single-country [flag]="country.flag" [country]="country.name"
+                            [population]="country.population.toLocaleString()"
                             [region]="country.region" [capital]="country.capital"></app-single-country>
       }
     </div>

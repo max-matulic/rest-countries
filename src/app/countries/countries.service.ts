@@ -20,10 +20,14 @@ export class CountriesService {
     return this.http.get<Country[]>(`https://restcountries.com/v2/name/${countryName}`);
   }
 
-  getSingleCountry(countryName: string): Observable<Country>{
+  getSingleCountry(countryName: string | null): Observable<Country>{
     return this.http.get<Country[]>(`https://restcountries.com/v2/name/${countryName}`).pipe(map(country => {
       const [singleCountry] = country;
       return singleCountry;
     }))
+  }
+
+  getBorderCountries(borderCountries: string[] | undefined): Observable<Country[]>{
+    return this.http.get<Country[]>(`https://restcountries.com/v2/alpha?codes=${borderCountries}`)
   }
 }

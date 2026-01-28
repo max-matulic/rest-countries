@@ -1,45 +1,74 @@
-import { Component, inject, signal, WritableSignal} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, inject, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {CountriesService} from '../countries/countries.service';
 import {Country} from '../single-country/single-country.model';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {map, Observable, shareReplay} from 'rxjs';
-import {AsyncPipe} from '@angular/common';
 import {LoadingSpinner} from '../loading-spinner/loading-spinner';
 import {HttpErrorResponse} from '@angular/common/http';
+import {ErrorMessage} from '../error-message/error-message';
+import {map, Observable, shareReplay, Subject, takeUntil} from 'rxjs';
+import {AsyncPipe} from '@angular/common';
+import {DarkMode} from '../services/dark-mode';
 
 @Component({
   selector: 'app-country-detail',
   imports: [
+    LoadingSpinner,
+    ErrorMessage,
     AsyncPipe,
-    LoadingSpinner
+    RouterLink,
   ],
   templateUrl: './country-detail.html',
   styleUrl: './country-detail.scss',
 })
-export class CountryDetail {
-  countryParam:WritableSignal<string> = signal("");
-  countryData$: Observable<Country>;
-  currencyData$: Observable<any>;
-  languagesData$: Observable<any>;
+export class CountryDetail implements OnInit, OnDestroy{
+  countryParam:WritableSignal<string | null> = signal("");
+  singleCountry: WritableSignal<Country | null> = signal(null);
+  currencies: WritableSignal<string> = signal("");
+  languages: WritableSignal<string> = signal("");
+  error: WritableSignal<string | null> = signal(null);
+  loading: WritableSignal<boolean> = signal(false);
+  borderCountriesObs$: Observable<string[]> = new Observable();
+  destroy$ = new Subject<void>();
+
   private activatedRoute = inject(ActivatedRoute);
   private countriesService = inject(CountriesService);
+  protected darkModeService = inject(DarkMode)
 
-  constructor() {
-    this.activatedRoute.params.pipe(takeUntilDestroyed()).subscribe((params)=>{
+  constructor() {}
+
+  ngOnInit() {
+    this.activatedRoute.params.pipe(takeUntil(this.destroy$)).subscribe((params)=>{
       this.countryParam.set(params['country']);
+        this.getSingleCountryData();
     });
+  }
 
-    this.countryData$ = this.countriesService.getSingleCountry(this.countryParam()).pipe(shareReplay(1));
+  private getSingleCountryData(): void {
+    this.loading.set(true);
+    this.error.set(null);
 
-    this.countryData$.subscribe({
-      error: (err: HttpErrorResponse)=>{
-        console.log(err);
-      }
-    })
+      this.countriesService.getSingleCountry(this.countryParam()).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (country: Country) => {
+          this.singleCountry.set(country);
+          const currencies = country.currencies.map(currency => currency.name).join(", ");
+          const languages = country.languages.map(language => language.name).join(", ");
+          this.currencies.set(currencies);
+          this.languages.set(languages);
 
-    this.currencyData$ = this.countryData$.pipe(map(country => country.currencies.map(currency => currency.name).join(", ")));
+          this.borderCountriesObs$ = this.countriesService.getBorderCountries(this.singleCountry()?.borders).pipe(map(borderCountries => borderCountries.map(borderCountry=> borderCountry.name)),shareReplay(1));
+        },
+        error: (err: HttpErrorResponse) => {
+          this.error.set(err.message);
+          this.loading.set(false);
+        },
+        complete: ()=>{
+          this.loading.set(false);
+        }
+      })
+  }
 
-    this.languagesData$ = this.countryData$.pipe(map(country => country.languages.map(language => language.name).join(", ")))
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -4,6 +4,10 @@
   .header {
     background-color: variables.$dark-elements;
 
+    &__title {
+      color: variables.$white;
+    }
+
     &__dark-mode-button {
       color: variables.$white;
       fill: variables.$white;
@@ -16,7 +20,7 @@
   box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
 
   &__content {
-    min-height: variables.$space-80;
+    min-height: 8vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25,6 +29,10 @@
   &__title {
     font-size: variables.$font-size-22;
     font-weight: 800;
+
+    @media screen and (max-width: 575px) {
+      font-size: variables.$font-size-16;
+    }
   }
 
   &__dark-mode-button {
@@ -35,6 +43,10 @@
     align-items: center;
     gap: variables.$space-4;
     cursor: pointer;
+
+    @media screen and (max-width: 575px) {
+      font-size: variables.$font-size-14;
+    }
   }
 
 }

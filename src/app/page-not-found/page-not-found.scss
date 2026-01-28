@@ -1,0 +1,22 @@
+@use '../../styles/variables';
+
+.page-not-found {
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: variables.$space-24;
+
+  &__title {
+    font-size: variables.$space-80;
+  }
+
+  &__back-button {
+    font-size: variables.$font-size-16;
+    padding: variables.$space-8 variables.$space-20;
+    border-radius: variables.$space-4;
+    background-color: variables.$white;
+    box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
+  }
+}

@@ -1,10 +1,28 @@
 @use '../../styles/variables';
 
+:host-context(body.dark-mode) {
+  .country-detail {
+    &__back-button {
+      background-color: variables.$dark-elements;
+      box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
+      color: variables.$white;
+    }
+
+    &__borders-button {
+      background-color: variables.$dark-elements;
+      box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
+      color: variables.$white;
+    }
+  }
+}
+
 p {
   font-size: variables.$font-size-16;
 }
 
 .country-detail {
+  margin-bottom: variables.$space-40;
+  
   &__back-button {
     display: inline-flex;
     align-items: center;
@@ -14,6 +32,10 @@ p {
     margin-block: variables.$space-80;
     background-color: variables.$white;
     box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
+
+    @media screen and (max-width: 900px) {
+      margin-block: variables.$space-40 variables.$space-64;
+    }
   }
 
   &__grid {
@@ -21,6 +43,10 @@ p {
     grid-template-columns: repeat(2, 45%);
     column-gap: 10%;
     align-items: center;
+
+    @media screen and (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__flag {
@@ -35,20 +61,57 @@ p {
     font-size: variables.$font-size-26;
     font-weight: 800;
     margin-bottom: variables.$space-32;
+
+    @media screen and (max-width: 900px) {
+      margin-block: variables.$space-40 variables.$space-24;
+    }
   }
 
   &__data {
     display: flex;
     justify-content: space-between;
 
+    @media screen and (max-width: 900px) {
+      flex-direction: column;
+      gap: variables.$space-40;
+    }
+
     &--left, &--right {
       display: flex;
       flex-direction: column;
       gap: variables.$space-8;
+
+      @media screen and (max-width: 900px) {
+        gap: variables.$space-12;
+      }
     }
   }
 
   &__border-countries {
     margin-top: variables.$space-56;
+    display: flex;
+    align-items: center;
+    gap: variables.$space-12;
+
+    @media screen and (max-width: 900px) {
+      flex-direction: column;
+      align-items: start;
+      margin-top: variables.$space-40;
+      gap: variables.$space-12;
+    }
+  }
+
+  &__borders-button-wrapper {
+    display: flex;
+    gap: variables.$space-8;
+    flex-wrap: wrap;
+  }
+
+  &__borders-button {
+    font-size: variables.$font-size-14;
+    padding: variables.$space-4 variables.$space-16;
+    border-radius: variables.$space-4;
+    background-color: variables.$white;
+    box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
   }
 }

@@ -1,10 +1,9 @@
-import {Component, inject, signal, WritableSignal} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
 import {CountriesService} from './countries.service';
 import {SingleCountry} from '../single-country/single-country';
 import {Country} from '../single-country/single-country.model';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {debounceTime} from 'rxjs';
+import {debounceTime, Subject, takeUntil} from 'rxjs';
 import {LoadingSpinner} from '../loading-spinner/loading-spinner';
 import {ErrorMessage} from '../error-message/error-message';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -20,7 +19,7 @@ import {HttpErrorResponse} from '@angular/common/http';
   templateUrl: './countries.html',
   styleUrl: './countries.scss',
 })
-export class Countries {
+export class Countries implements OnInit, OnDestroy {
   countries: WritableSignal<Country[]> = signal<Country[]>([]);
   allCountries: WritableSignal<Country[]> = signal<Country[]>([]);
   regions: WritableSignal<string[]> = signal<string[]>([]);
@@ -28,9 +27,13 @@ export class Countries {
   loading: WritableSignal<boolean> = signal<boolean>(false);
   search = new FormControl("");
   filter = new FormControl("");
+  destroy$ = new Subject<void>();
+
   private countriesService = inject(CountriesService);
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit() {
     this.loadCountries();
     this.loadCountriesByRegion();
     this.loadCountriesByName();
@@ -56,7 +59,7 @@ export class Countries {
   }
 
   private loadCountriesByRegion(): void {
-    this.filter.valueChanges.pipe(takeUntilDestroyed()).subscribe((value)=>{
+    this.filter.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value)=>{
       if(value && value !== "all") {
         this.loading.set(true);
         this.error.set(null);
@@ -79,7 +82,7 @@ export class Countries {
   }
 
   private loadCountriesByName(): void {
-    this.search.valueChanges.pipe(debounceTime(800), takeUntilDestroyed()).subscribe((value)=>{
+    this.search.valueChanges.pipe(debounceTime(800), takeUntil(this.destroy$)).subscribe((value)=>{
       if(value && value !== "") {
         this.loading.set(true);
         this.error.set(null);
@@ -99,5 +102,10 @@ export class Countries {
         this.countries.set(this.allCountries());
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

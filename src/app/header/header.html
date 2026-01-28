@@ -1,14 +1,10 @@
 <header class="header">
   <div class="header__content container">
-    <h2 class="header__title">Where in the world?</h2>
-    <button class="header__dark-mode-button" (click)="toggleDarkMode()">
-      @if (isDarkMode) {
-        <img src="/moon-solid-white.svg" alt="white moon icon" height="14" width="14">
-      } @else {
-        <img src="/moon-regular.svg" alt="moon icon" height="14" width="14">
-      }
+    <a routerLink="/" class="header__title">Where in the world?</a>
+    <button class="header__dark-mode-button" (click)="darkModeService.toggleDarkMode()">
+      <img [src]="darkModeService.isDarkMode() ? '/moon-solid-white.svg' : '/moon-regular.svg'" alt="moon icon"
+           height="14" width="14">
       <span>Dark Mode</span>
     </button>
   </div>
-
 </header>

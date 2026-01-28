@@ -1,34 +1,46 @@
 <div class="country-detail container">
   <a href="#" class="country-detail__back-button">
-    <img src="/arrow-left-solid.svg" alt="arrow-left" width="16" height="16">
+    <img [src]="darkModeService.isDarkMode() ? '/arrow-left-solid-white.svg' : '/arrow-left-solid.svg'" alt="arrow-left"
+         width="16" height="16">
     Back
   </a>
-  @if (countryData$ | async; as countryData) {
-    <div class="country-detail__grid">
-      <img src="{{countryData.flag}}" alt="{{countryData.name}} flag" class="country-detail__flag">
-      <div class="country-detail__info-wrapper">
-        <h1 class="country-detail__title">{{ countryData.name }}</h1>
-        <div class="country-detail__data">
-          <div class="country-detail__data--left">
-            <p><strong>Native Name: </strong>{{ countryData.nativeName }}</p>
-            <p><strong>Population: </strong>{{ countryData.population }}</p>
-            <p><strong>Region: </strong>{{ countryData.region }}</p>
-            <p><strong>Sub Region: </strong>{{ countryData.subregion }}</p>
-            <p><strong>Capital: </strong>{{ countryData.capital }}</p>
+  @if (loading()) {
+    <app-loading-spinner/>
+  } @else if (error()) {
+    <app-error-message [error]="error()"/>
+  } @else {
+    @if (singleCountry()) {
+      <div class="country-detail__grid">
+        <img src="{{singleCountry()?.flag}}" alt="{{singleCountry()?.name}} flag" class="country-detail__flag">
+        <div class="country-detail__info-wrapper">
+          <h1 class="country-detail__title">{{ singleCountry()?.name }}</h1>
+          <div class="country-detail__data">
+            <div class="country-detail__data--left">
+              <p><strong>Native Name: </strong>{{ singleCountry()?.nativeName }}</p>
+              <p><strong>Population: </strong>{{ singleCountry()?.population?.toLocaleString() }}</p>
+              <p><strong>Region: </strong>{{ singleCountry()?.region }}</p>
+              <p><strong>Sub Region: </strong>{{ singleCountry()?.subregion }}</p>
+              <p><strong>Capital: </strong>{{ singleCountry()?.capital }}</p>
+            </div>
+            <div class="country-detail__data--right">
+              <p><strong>Top Level Domain: </strong>{{ singleCountry()?.topLevelDomain }}</p>
+              <p class="country-detail__currencies"><strong>Currencies: </strong>{{ currencies() }}</p>
+              <p><strong>Languages: </strong>{{ languages() }}</p>
+            </div>
           </div>
-          <div class="country-detail__data--right">
-            <p><strong>Top Level Domain: </strong>{{ countryData.topLevelDomain }}</p>
-            <p class="country-detail__currencies"><strong>Currencies: </strong>{{ currencyData$ | async }}</p>
-            <p><strong>Languages: </strong>{{ languagesData$ | async }}</p>
+          <div class="country-detail__border-countries">
+            <span><strong>Border Countries: </strong> </span>
+            @if (borderCountriesObs$ | async; as borderCountries) {
+              <div class="country-detail__borders-button-wrapper">
+                @for (border of borderCountries; track border) {
+                  <a [routerLink]="['/countries', border]"
+                     class="country-detail__borders-button">{{ border }}</a>
+                }
+              </div>
+            }
           </div>
-        </div>
-        <div class="country-detail__border-countries">
-          <span><strong>Border Countries: </strong></span>
         </div>
       </div>
-    </div>
-  } @else {
-    <app-loading-spinner/>
+    }
   }
-
 </div>
