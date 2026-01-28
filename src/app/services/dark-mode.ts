@@ -10,7 +10,7 @@ export class DarkMode {
 
   constructor() {
     this.siteMode = localStorage.getItem("mode");
-    this.body?.classList.add(this.siteMode ?? "");
+    this.body?.classList.add(this.siteMode ?? "test");
     this.isDarkMode.set(this.siteMode === "dark-mode");
   }
 
