@@ -4,7 +4,6 @@
            [formControl]="search">
     <select name="region" id="region" autocomplete="off" [formControl]="filter">
       <option value="">Filter by Region</option>
-      <option value="all">All countries</option>
       @for (region of regions(); track region) {
         <option value="{{region}}">{{ region }}</option>
       }

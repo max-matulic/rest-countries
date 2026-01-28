@@ -14,6 +14,12 @@
     background-color: variables.$dark-elements;
     color: variables.$white;
   }
+
+  #region,
+  ::picker(select) {
+    background-color: variables.$dark-elements;
+    color: variables.$white;
+  }
 }
 
 .countries {
@@ -54,6 +60,8 @@
   border: 0;
   border-radius: variables.$space-4;
   padding-left: variables.$space-20;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
+
 
   @media screen and (max-width: 900px) {
     width: auto;
@@ -63,11 +71,35 @@
 #region {
   border: 0;
   border-radius: variables.$space-4;
+  background-color: variables.$white;
+  font-size: variables.$font-size-14;
   width: 170px;
+  display: flex;
+  align-items: center;
   height: 42px;
-  padding-inline: variables.$space-12;
+  padding-inline: variables.$space-16;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
 
   @media screen and (max-width: 900px) {
     width: 50%;
   }
 }
+
+#region,
+::picker(select) {
+  appearance: base-select;
+  border: none;
+  margin-top: variables.$space-4;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1), 0 2px 22px 0 rgba(0, 0, 0, 0.02);
+  padding-block: variables.$space-12;
+}
+
+option {
+  padding-block: variables.$space-4;
+}
+
+option::checkmark {
+  content: "";
+}
+
+

@@ -1,5 +1,5 @@
 <div class="country-detail container">
-  <a href="#" class="country-detail__back-button">
+  <a [routerLink]="previousRoute.previousRoute()" class="country-detail__back-button">
     <img [src]="darkModeService.isDarkMode() ? '/arrow-left-solid-white.svg' : '/arrow-left-solid.svg'" alt="arrow-left"
          width="16" height="16">
     Back

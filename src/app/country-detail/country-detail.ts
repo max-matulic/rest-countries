@@ -8,6 +8,7 @@ import {ErrorMessage} from '../error-message/error-message';
 import {map, Observable, shareReplay, Subject, takeUntil} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 import {DarkMode} from '../services/dark-mode';
+import {PreviousRoute} from '../services/previous-route';
 
 @Component({
   selector: 'app-country-detail',
@@ -32,7 +33,8 @@ export class CountryDetail implements OnInit, OnDestroy{
 
   private activatedRoute = inject(ActivatedRoute);
   private countriesService = inject(CountriesService);
-  protected darkModeService = inject(DarkMode)
+  protected darkModeService = inject(DarkMode);
+  protected previousRoute = inject(PreviousRoute);
 
   constructor() {}
 

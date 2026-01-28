@@ -1,6 +1,5 @@
 import {Component, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
-
 @Component({
   selector: 'app-single-country',
   imports: [
@@ -15,4 +14,7 @@ export class SingleCountry {
   population = input("");
   region = input("");
   capital = input("");
+
+  constructor() {
+  }
 }
